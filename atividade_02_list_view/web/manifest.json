@@ -1,6 +1,6 @@
 {
-    "name": "flutter_app",
-    "short_name": "flutter_app",
+    "name": "atividade_02_list_view",
+    "short_name": "atividade_02_list_view",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -1,4 +1,4 @@
-# flutter_app
+# atividade_02_list_view
 
 A new Flutter project.
 
