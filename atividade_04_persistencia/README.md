@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   sqflite: ^2.3.0
-  sqflite_common_ffi_web: ^0.4.0
+  sqflite_common_ffi_web: ^1.2.0
   path: ^1.9.0
 ```
 
@@ -90,7 +90,7 @@ Para inspecionar: Android Studio > **App Inspection** > **Database Inspector** (
    flutter run -d chrome
    ```
 
-> Se o banco apresentar problemas com o web worker no ambiente de desenvolvimento, troque `databaseFactoryFfiWeb` por `databaseFactoryFfiWebNoWebWorker` em `lib/database/banco_de_dados.dart`.
+> Se o banco apresentar problemas com o web worker no ambiente de desenvolvimento, troque `databaseFactoryFfiWeb` por `databaseFactoryFfiWebNoWebWorker` em `lib/bd/banco_de_dados.dart`.
 
 ### Onde fica o banco na Web
 

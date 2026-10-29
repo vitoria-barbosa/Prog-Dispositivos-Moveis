@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'banco_dados/banco_de_dados.dart';
+import 'bd/banco_de_dados.dart';
 import 'models/contato.dart';
 import 'paginas/cadastro.dart';
 
@@ -17,8 +17,14 @@ class MyApp extends StatelessWidget {
       title: 'Agenda de Contatos',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.deepPurple,
+          foregroundColor: Colors.white,
+          centerTitle: true,
+        ),
       ),
       home: const PaginaInicial(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -43,7 +49,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
     _contatos = BancoDeDados.instance.selecionarContatos();
   }
 
-  Future<void> _abrirCadastro({Contato? contato}) async {
+  Future<void> _abrirCadastroOuEdicao({Contato? contato}) async {
     final salvo = await Navigator.push<bool>(
       context,
       MaterialPageRoute(builder: (_) => Cadastro(contato: contato)),
@@ -65,6 +71,9 @@ class _PaginaInicialState extends State<PaginaInicial> {
             child: const Text('Cancelar'),
           ),
           FilledButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStatePropertyAll(Colors.deepPurple),
+            ),
             onPressed: () => Navigator.pop(context, true),
             child: const Text('Apagar'),
           ),
@@ -126,11 +135,20 @@ class _PaginaInicialState extends State<PaginaInicial> {
               return ListTile(
                 title: Text(contato.nome),
                 subtitle: Text(contato.email),
-                onTap: () => _abrirCadastro(contato: contato),
-                trailing: IconButton(
-                  tooltip: 'Apagar contato',
-                  icon: const Icon(Icons.delete_outline),
-                  onPressed: () => _apagarContato(contato),
+                trailing: Row(
+                  mainAxisSize: .min,
+                  children: [
+                    IconButton(
+                      tooltip: 'Editar contato',
+                      icon: const Icon(Icons.edit_outlined),
+                      onPressed: () => _abrirCadastroOuEdicao(contato: contato),
+                    ),
+                    IconButton(
+                      tooltip: 'Apagar contato',
+                      icon: const Icon(Icons.delete_outline),
+                      onPressed: () => _apagarContato(contato),
+                    ),
+                  ],
                 ),
               );
             },
@@ -139,7 +157,7 @@ class _PaginaInicialState extends State<PaginaInicial> {
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Adicionar contato',
-        onPressed: () => _abrirCadastro(),
+        onPressed: () => _abrirCadastroOuEdicao(),
         child: const Icon(Icons.add),
       ),
     );

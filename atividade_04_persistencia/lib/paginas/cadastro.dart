@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../banco_dados/banco_de_dados.dart';
+import '../bd/banco_de_dados.dart';
 import '../models/contato.dart';
 
 class Cadastro extends StatefulWidget {
@@ -40,6 +40,7 @@ class _CadastroState extends State<Cadastro> {
     }
 
     setState(() => _salvando = true);
+
     final contato = Contato(
       id: widget.contato?.id,
       nome: _nomeController.text.trim(),
@@ -71,7 +72,9 @@ class _CadastroState extends State<Cadastro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_editando ? 'Editar contato' : 'Novo contato')),
+      appBar: AppBar(
+        title: Text(_editando ? 'Editar contato' : 'Novo contato'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -115,10 +118,15 @@ class _CadastroState extends State<Cadastro> {
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(Colors.deepPurple),
+                  ),
                   onPressed: _salvando ? null : _salvar,
                   child: _salvando
                       ? const CircularProgressIndicator()
-                      : Text(_editando ? 'Salvar alterações' : 'Salvar contato'),
+                      : Text(
+                          _editando ? 'Salvar alterações' : 'Salvar contato',
+                        ),
                 ),
               ),
             ],
